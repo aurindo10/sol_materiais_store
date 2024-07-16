@@ -1,0 +1,17 @@
+version: "3"
+services:
+  postgres:
+    image: bitnami/postgresql
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRESQL_USERNAME=docker
+      - POSTGRESQL_DATABASE=sol_store
+      - POSTGRESQL_PASSWORD=sol123
+      - POSTGRESQL_POSTGRES_PASSWORD=postgres
+    volumes:
+      - postgres_data:/bitnami/postgresql
+
+volumes:
+  postgres_data:
+    driver: local
