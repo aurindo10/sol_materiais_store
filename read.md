@@ -11,3 +11,8 @@ Tasks to do
 
 [x] conection with db
 [x] create test with clerk
+[] think about all the fields of product entitie
+[] get the txt of color machine and study about this
+[] create db test
+[] crate endpoint to create product
+[] make test of endpoint to create product

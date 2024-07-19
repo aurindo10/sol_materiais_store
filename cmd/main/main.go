@@ -6,6 +6,7 @@ import (
 
 	"github.com/aurindo10/sol_store/internal/db"
 	producthandler "github.com/aurindo10/sol_store/internal/handlers/productHandler"
+	productrepository "github.com/aurindo10/sol_store/internal/repositories/productRepository"
 	"github.com/aurindo10/sol_store/pkg/lib"
 	"github.com/clerk/clerk-sdk-go/v2"
 	"github.com/gin-gonic/gin"
@@ -20,9 +21,10 @@ func main() {
 	}
 	clerkSecretKey := os.Getenv("CLERK_SECRET_KEY")
 	clerk.SetKey(clerkSecretKey)
-
 	dbConnection := db.Connection()
-	r.GET("/all_products", lib.ProtectedMiddlware(), producthandler.CreateProduct(dbConnection))
-	r.GET("/test", producthandler.CreateProduct(dbConnection))
+	productRepo := productrepository.NewProductRepository(dbConnection)
+	r.GET("/get_all_products", lib.ProtectedMiddlware(), producthandler.GetAllProducts(productRepo))
+	r.POST("/create_products", lib.ProtectedMiddlware(), producthandler.CreateProduct(productRepo))
+	r.GET("/test", producthandler.CreateProduct(productRepo))
 	r.Run()
 }
